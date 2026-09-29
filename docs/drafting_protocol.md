@@ -12,6 +12,7 @@ Before drafting any section, check these files:
 |---|---|
 | `drafts/draft_plan.md` | Key message, tone, table/figure plan, claim-to-citation mapping |
 | `data/analysis_plan.md` | Research question, endpoints, statistical methods |
+| `drafts/method_results_template.md` (optional, Phase 2 Step 2b) | Pre-specified Methods/Results skeleton, method–result crosswalk, results CSV schema |
 | `results/` and `drafts/table_*.md` | Numerical results and table references |
 | `knowledge/evidence.md` | Verified citation support |
 | `Style/terminology.md` | Preferred and forbidden terminology |
@@ -52,7 +53,8 @@ Convert the outline to prose using only mapped evidence and approved results.
 Rules:
 - Introduction claims must map to `knowledge/evidence.md` or approved style anchors.
 - Methods must match `data/analysis_plan.md`.
-- Results must match `drafts/table_*.md` and `results/`.
+- If `drafts/method_results_template.md` exists, start Methods/Results from its skeleton (B/C) and keep its crosswalk IDs; do not add analyses absent from it without first revising the template (and the analysis plan when the hierarchy changes).
+- Results must match `drafts/table_*.md` and `results/`; fill template blanks only with `results/*.csv` values.
 - Discussion interpretation must be grounded in the actual Results.
 - No new citations, numbers, endpoints, or analyses may be invented during drafting.
 

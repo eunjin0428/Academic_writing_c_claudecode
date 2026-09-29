@@ -6,7 +6,7 @@ Claude AI를 활용한 의학 학술 논문 작성을 위한 체계적인 워크
 
 ## 버전
 
-**v1.7.4** (2026-09-08)
+**v1.7.5** (2026-09-29)
 
 [![tests](https://github.com/grotyx/Academic_writing_c_claudecode/actions/workflows/tests.yml/badge.svg)](https://github.com/grotyx/Academic_writing_c_claudecode/actions/workflows/tests.yml)
 
@@ -45,6 +45,7 @@ Claude AI를 활용한 의학 학술 논문 작성을 위한 체계적인 워크
 - **Author response DOCX generation** (`scripts/compile_response_docx.py`) — DOCX-ready Markdown을 `Author_response_220803_Final.docx` house style에 맞춰 변환
 - **Author response Markdown template** (`docs/response_letter_template.md`) — reviewer response, 수정 위치, machine-readable `[CHANGE]` block을 정렬
 - **Draft plan 템플릿** (`docs/draft_plan_template.md`) — 10개 항목 템플릿 + claim→citation 테이블 + 승인 체크리스트
+- **Method–Results 템플릿** (`docs/method_results_template.md`, Phase 2 Step 2b, 권장) — analysis plan 승인 후 분석 실행 전에 Methods/Results 골격·method–result crosswalk·`check_numbers.py`가 대조할 `results/*.csv` schema를 먼저 고정; 결과를 본 뒤 분석을 바꾸는 일을 막고 draft plan으로 이어짐
 - **PubMed 검색 도구** — 내장 Python 스크립트 (MCP 및 외부 패키지 불필요)
 - **공동 저자 토론** (`/paper-debate`) — 작성 전 Claude–Codex 토론으로 분석 계획·draft plan·논증 구조·리뷰어 응답 설계 (`docs/debate_protocol.md`)
 - **멀티모델 비판적 검토** (`/critical-review`) — 작성 후 Claude 서브에이전트·Codex·OpenRouter 모델로 senior reviewer/editor 수준의 적대적 검토, 합의도 × 심각도로 정렬 (`docs/critical_review_protocol.md`)
@@ -80,6 +81,7 @@ project/
 │   ├── figure_guide.md           # Figure 생성 가이드
 │   ├── docx_guide.md             # DOCX 변환 가이드
 │   ├── draft_plan_template.md    # Draft plan 템플릿 (Phase 3에서 복사하여 사용)
+│   ├── method_results_template.md  # Method–Results 골격 템플릿 (Phase 2 Step 2b, 권장)
 │   ├── debate_protocol.md        # Claude–Codex 공동 저자 토론 절차
 │   ├── critical_review_protocol.md  # 외부 멀티모델 적대적 검토
 │   ├── style_transform_protocol.md  # /style-pass 변환 + Style verifier
@@ -300,6 +302,7 @@ Claude 통합 슬래시 명령어:
 | [docs/figure_guide.md](docs/figure_guide.md) | Figure 생성 가이드 (DPI, 팔레트, Python 템플릿) |
 | [docs/docx_guide.md](docs/docx_guide.md) | DOCX 변환 가이드 (서식, 테이블 스타일, 네이밍 규칙) |
 | [docs/draft_plan_template.md](docs/draft_plan_template.md) | Draft plan 템플릿 — 10개 항목 + claim→citation 테이블 + 승인 체크리스트 |
+| [docs/method_results_template.md](docs/method_results_template.md) | Method–Results 골격 템플릿 (Phase 2 Step 2b, 권장) — 분석 위계·Methods/Results 대칭 골격·crosswalk·results CSV schema·Table/Figure plan·미결정 사항; 수치 금지 |
 | [docs/debate_protocol.md](docs/debate_protocol.md) | Claude–Codex 공동저자 토론 절차 (라운드, 역할, 로깅, fallback) |
 | [docs/critical_review_protocol.md](docs/critical_review_protocol.md) | 외부 멀티모델 적대적 검토 (리뷰어 풀, 합의도 × 심각도, fallback) |
 | [Style/style_guide.md](Style/style_guide.md) | 스타일 앵커 워크플로우, 추출 프레임워크, PDF-to-MD 미러 규칙 |
@@ -363,6 +366,12 @@ Copyright (c) 2026 박상민, 서울대학교 분당서울대학교병원
 ---
 
 ## 변경 이력
+
+### v1.7.5 (260929)
+
+- **Phase 2 Step 2b — Method–Results 템플릿 (권장).** 신규 `docs/method_results_template.md`: `analysis_plan.md` 승인 후 분석 실행 전에 `drafts/method_results_template.md`로 복사해 분석 위계(P1/S1/SEN/E), 빈칸형 Methods/Results 대칭 골격, method–result crosswalk, `results/*.csv` 열 schema, Table/Figure plan, 근거 지도, 미결정 사항, 분석 전 자가 감사를 먼저 고정한다. 계획 산출물이므로 `0N_` 접두사 없음(Rule 8 훅 비차단), 수치 금지, `analysis_plan.md`에 합치지 않음(승인 해시 보호).
+- `WORKFLOW.md`(구조·File Roles·Rule 7–8·Phase 2–4·2→3 기준·Quick Commands), `AGENTS.md`, `docs/draft_plan_template.md`(항목 5/6을 템플릿에서 가져옴), `docs/drafting_protocol.md`, `docs/statistical_analysis_guide.md`(v0.3.2)에 연결.
+- 회귀 테스트: plan-first 훅이 `drafts/method_results_template.md`는 허용하고, 승인된 draft plan 없는 `drafts/04_methods.md`는 계속 차단함을 확인.
 
 ### v1.7.4 (260908)
 

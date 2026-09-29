@@ -6,7 +6,7 @@
 
 ## 版本
 
-**v1.7.4** (2026-09-08)
+**v1.7.5** (2026-09-29)
 
 [![tests](https://github.com/grotyx/Academic_writing_c_claudecode/actions/workflows/tests.yml/badge.svg)](https://github.com/grotyx/Academic_writing_c_claudecode/actions/workflows/tests.yml)
 
@@ -79,6 +79,7 @@ project/
 │   ├── figure_guide.md          # 图表生成指南
 │   ├── docx_guide.md            # DOCX 转换指南
 │   ├── draft_plan_template.md    # Draft plan template
+│   ├── method_results_template.md  # Method–Results skeleton（Phase 2 Step 2b，推荐）
 │   ├── debate_protocol.md        # Claude–Codex 合著者辩论流程
 │   ├── critical_review_protocol.md  # 外部多模型对抗性评审
 │   ├── style_transform_protocol.md  # /style-pass 转换 + Style verifier
@@ -275,6 +276,7 @@ Claude 集成斜杠命令：
 | [docs/figure_guide.md](docs/figure_guide.md) | 图表生成指南（DPI、调色板、Python模板） |
 | [docs/docx_guide.md](docs/docx_guide.md) | DOCX 转换指南（格式、表格样式、命名规则） |
 | [docs/draft_plan_template.md](docs/draft_plan_template.md) | Draft plan template — 10项内容、claim→citation tables、approval checklist |
+| [docs/method_results_template.md](docs/method_results_template.md) | Method–Results skeleton template（Phase 2 Step 2b，推荐）— 分析层级、Methods/Results 对称骨架、crosswalk、results CSV schema、table/figure plan、未决事项；不含数值 |
 | [docs/debate_protocol.md](docs/debate_protocol.md) | Claude–Codex 合著者辩论流程（轮次、角色、日志、fallback） |
 | [docs/critical_review_protocol.md](docs/critical_review_protocol.md) | 外部多模型对抗式评审（评审者池、共识度 × 严重度、fallback） |
 | [Style/style_guide.md](Style/style_guide.md) | Style anchor workflow、extraction framework、PDF-to-MD mirror rules |
@@ -340,6 +342,12 @@ Copyright (c) 2026 Sang-Min Park, Seoul National University Bundang Hospital
 ---
 
 ## 变更记录
+
+### v1.7.5 (260929)
+
+- **Phase 2 Step 2b — Method–Results 模板（推荐）。** 新增 `docs/method_results_template.md`：在 `analysis_plan.md` 获批后、运行分析前复制到 `drafts/method_results_template.md`，预先固定分析层级（P1/S1/SEN/E）、填空式 Methods/Results 对称骨架、method–result crosswalk、`results/*.csv` 列 schema、table/figure plan、依据映射、未决事项及分析前自查。它是计划产物：无 `0N_` 前缀（不受 Rule 8 钩子阻止）、不含数值、不并入 `analysis_plan.md`（保护批准哈希）。
+- 接入 `WORKFLOW.md`、`AGENTS.md`、`docs/draft_plan_template.md`（第 5/6 项从模板导入）、`docs/drafting_protocol.md`、`docs/statistical_analysis_guide.md`（v0.3.2）。
+- 回归测试：plan-first 钩子允许 `drafts/method_results_template.md`，而在没有已批准 draft plan 时仍阻止 `drafts/04_methods.md`。
 
 ### v1.7.4 (260908)
 

@@ -140,6 +140,19 @@ class DecideTests(unittest.TestCase):
             (Path(tmp) / "drafts").mkdir()
             self.assertIsNone(m.decide(event(tmp, file_path="drafts/draft_plan.md")))
 
+    def test_allows_method_results_template_before_draft_plan(self) -> None:
+        # Phase 2 Step 2b: the Method–Results template is a planning artifact
+        # (no 0N_ prefix), writable before draft_plan.md exists; sections stay gated.
+        m = load_module()
+        with tempfile.TemporaryDirectory() as tmp:
+            (Path(tmp) / "drafts" / "paper1_x").mkdir(parents=True)
+            for path in (
+                "drafts/method_results_template.md",
+                "drafts/paper1_x/method_results_template.md",
+            ):
+                self.assertIsNone(m.decide(event(tmp, file_path=path)))
+            self.assertIn("Rule 8", m.decide(event(tmp, file_path="drafts/04_methods.md")))
+
     def test_allows_non_write_tools(self) -> None:
         m = load_module()
         with tempfile.TemporaryDirectory() as tmp:

@@ -6,7 +6,7 @@ Claude AI を活用した医学学術論文執筆のための体系的なワー�
 
 ## バージョン
 
-**v1.7.4** (2026-09-08)
+**v1.7.5** (2026-09-29)
 
 [![tests](https://github.com/grotyx/Academic_writing_c_claudecode/actions/workflows/tests.yml/badge.svg)](https://github.com/grotyx/Academic_writing_c_claudecode/actions/workflows/tests.yml)
 
@@ -79,6 +79,7 @@ project/
 │   ├── figure_guide.md          # Figure作成ガイド
 │   ├── docx_guide.md            # DOCX 変換ガイド
 │   ├── draft_plan_template.md    # Draft plan template
+│   ├── method_results_template.md  # Method–Results skeleton（Phase 2 Step 2b、推奨）
 │   ├── debate_protocol.md        # Claude–Codex 共著者ディベート手順
 │   ├── critical_review_protocol.md  # 外部マルチモデル敵対的レビュー
 │   ├── style_transform_protocol.md  # /style-pass 変換 + Style verifier
@@ -271,6 +272,7 @@ Claude 統合スラッシュコマンド：
 | [docs/figure_guide.md](docs/figure_guide.md) | Figure作成ガイド（DPI、パレット、Pythonテンプレート） |
 | [docs/docx_guide.md](docs/docx_guide.md) | DOCX 変換ガイド（書式、テーブルスタイル、命名規則） |
 | [docs/draft_plan_template.md](docs/draft_plan_template.md) | Draft plan template — 10項目、claim→citation tables、approval checklist |
+| [docs/method_results_template.md](docs/method_results_template.md) | Method–Results skeleton template（Phase 2 Step 2b、推奨）— 解析階層、Methods/Results 対称骨格、crosswalk、results CSV schema、table/figure plan、未決事項；数値なし |
 | [docs/debate_protocol.md](docs/debate_protocol.md) | Claude–Codex 共著者ディベート手順（ラウンド、役割、ロギング、fallback） |
 | [docs/critical_review_protocol.md](docs/critical_review_protocol.md) | 外部マルチモデル敵対的レビュー（レビュアープール、合意度 × 深刻度、fallback） |
 | [Style/style_guide.md](Style/style_guide.md) | Style anchor workflow、extraction framework、PDF-to-MD mirror rules |
@@ -334,6 +336,12 @@ Copyright (c) 2026 Sang-Min Park, Seoul National University Bundang Hospital
 ---
 
 ## 変更履歴
+
+### v1.7.5 (260929)
+
+- **Phase 2 Step 2b — Method–Results テンプレート（推奨）。** 新規 `docs/method_results_template.md`：`analysis_plan.md` 承認後・解析実行前に `drafts/method_results_template.md` へコピーし、解析階層（P1/S1/SEN/E）、空欄式の Methods/Results 対称骨格、method–result crosswalk、`results/*.csv` の列 schema、table/figure plan、根拠マップ、未決事項、解析前セルフ監査を先に固定する。計画成果物のため `0N_` 接頭辞なし（Rule 8 フックの対象外）、数値禁止、`analysis_plan.md` には統合しない（承認ハッシュを保護）。
+- `WORKFLOW.md`、`AGENTS.md`、`docs/draft_plan_template.md`（項目 5/6 をテンプレートから取り込み）、`docs/drafting_protocol.md`、`docs/statistical_analysis_guide.md`（v0.3.2）に接続。
+- 回帰テスト：plan-first フックが `drafts/method_results_template.md` を許可し、承認済み draft plan のない `drafts/04_methods.md` は引き続きブロックすることを確認。
 
 ### v1.7.4 (260908)
 

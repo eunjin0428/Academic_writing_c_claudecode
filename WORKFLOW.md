@@ -1,6 +1,6 @@
-# Academic Paper Writing Project (v1.7.4)
+# Academic Paper Writing Project (v1.7.5)
 
-## Shared Engine (v1.7.4)
+## Shared Engine (v1.7.5)
 
 This file contains the runtime-independent workflow. Read `docs/harness_guide.md` for manifest-based draft/revision/submission checks, plan approval hashes, numerical bindings, review packets and gated builds. Its explicit profile rules supersede legacy command examples below. Legacy phase/model examples remain descriptive, not model requirements. Human approvals must reflect an actual decision; never generate an approval to bypass a gate. The public template is not a safe place for private manuscript work: use a separate private project.
 
@@ -38,6 +38,7 @@ project/
 │   ├── figure_guide.md          # Figure generation guide
 │   ├── docx_guide.md            # DOCX 변환 가이드 (서식, 테이블, 네이밍)
 │   ├── draft_plan_template.md    # Draft plan 10개 항목 템플릿 (Phase 3에서 복사)
+│   ├── method_results_template.md  # Method–Results 골격 템플릿 (Phase 2 Step 2b에서 복사, 권장)
 │   ├── debate_protocol.md        # Claude–Codex co-author 토론 절차
 │   ├── critical_review_protocol.md  # 외부 멀티모델 적대적 검토 절차
 │   ├── style_transform_protocol.md  # /style-pass 변환 + Style Verifier
@@ -73,6 +74,7 @@ project/
 │   └── statistics_summary.csv
 ├── drafts/                       # Manuscript sections & tables
 │   ├── draft_plan.md            # Draft plan (required before drafting)
+│   ├── method_results_template.md  # Method–Results 골격 (Phase 2 Step 2b, 권장; 수치 없음)
 │   ├── 00_cover_letter.md       # Cover letter template
 │   ├── 01_title.md ~ 09_figure_legends.md  # Writing guide templates
 │   ├── table_*.md               # Table templates
@@ -153,6 +155,7 @@ project/
 | `docs/figure_guide.md` | Figure generation guide (DPI, 팔레트, Python 템플릿) | Phase 2 (figure 생성 시) |
 | `docs/docx_guide.md` | DOCX 변환 가이드 (서식, 테이블 스타일, 네이밍 규칙) | Phase 7 (DOCX 변환 시 **반드시** 읽고 따를 것) |
 | `docs/draft_plan_template.md` | Draft plan 10개 항목 템플릿 (Phase 3에서 복사하여 사용) | Phase 3 시작 시 복사 → `drafts/draft_plan.md` |
+| `docs/method_results_template.md` | Method–Results 골격 템플릿 — 분석 위계·Methods/Results 대칭 골격·crosswalk·results CSV schema·Table/Figure plan·미결정 사항 (수치 금지) | Phase 2 Step 2b (analysis_plan 승인 후, 분석 실행 전; 권장) → `drafts/method_results_template.md` |
 | `docs/debate_protocol.md` | Claude–Codex co-author 토론 절차 (라운드·역할·로그·폴백) | Phase 2·3·4·8 (`/paper-debate` 토론 시) |
 | `docs/critical_review_protocol.md` | 외부 멀티모델 적대적 검토 절차 (리뷰어 풀·합의도·폴백) | Phase 6 QC·Phase 8 (`/critical-review`) |
 | `profile/authors.md` | 저자 정보 (소속·연락처·ORCID·funding 문구 템플릿); gitignored — `profile/example_authors.md`를 복사해 작성 | Title page 작성 시 **반드시** 참조 — 직접 입력 금지 |
@@ -343,6 +346,8 @@ These must match across **Abstract ↔ Methods ↔ Results ↔ Tables**:
 5. 유의수준 및 다중비교 보정 계획
 6. 문서 말미 승인 체크박스 `- [ ] 사용자 승인 완료` — 사용자가 `[x]`로 체크해야 훅이 분석 스크립트 생성을 허용(체크박스 부재·미체크 = 미승인)
 
+**Step 2b — Method–Results 템플릿 (권장):** 승인 후 분석 실행 전에 `docs/method_results_template.md`를 `drafts/(paper{N}_xxx/)method_results_template.md`로 복사해 Methods/Results 골격·crosswalk·results CSV schema를 먼저 고정한다. 계획 산출물이므로 섹션 번호(`0N_`)를 붙이지 않고(훅 차단 대상 아님), **수치를 넣지 않으며**, analysis_plan.md에 합치지 않는다(승인 해시 보호). 분석 위계가 바뀌면 analysis_plan을 먼저 개정·재승인한다.
+
 ### 8. Draft Plan Mandatory (원고 구성 계획 필수)
 
 > **원고 작성 전에 반드시 draft_plan.md를 작성하고 확인받아야 한다**
@@ -353,6 +358,7 @@ These must match across **Abstract ↔ Methods ↔ Results ↔ Tables**:
 - 분석 결과(results/)를 확인한 후, 원고 작성 전에 전체 구성을 먼저 계획
 - **Step 0 (Socratic 브레인스토밍):** 항목을 채우기 전, 사용자에게 **한 번에 하나씩** 질문해 의도를 정제한다 (`docs/draft_plan_template.md` 상단). 이 답변은 `/paper-debate`의 R0 준비자료로 쓰되 토론 자체와는 별개다.
 - 사용자가 draft_plan.md를 확인한 후에만 섹션 작성 진행
+- Step 2b의 `method_results_template.md`는 계획 산출물이지 섹션 초안이 아니다 — draft_plan 승인 전에 작성할 수 있지만, 이를 `04_methods.md`/`05_results.md`로 옮기는 것은 draft_plan 승인 후(Phase 4)다
 - draft_plan.md가 존재하지 않으면 섹션 작성을 거부
 
 **저장 위치:**
@@ -486,12 +492,16 @@ Phase 2: Statistical Analysis — Opus 권장 (analysis_plan)
 ├── Create data/analysis_plan.md (필수, 사용자 승인 후 진행)
 │   ├── Claude reads CSV → creates analysis plan → 사용자 확인
 │   └── 포함 항목: endpoint hierarchy, 검정법, 다중비교 보정, 결측 처리
+├── Step 2b (권장): Copy docs/method_results_template.md → drafts/method_results_template.md
+│   ├── 분석 위계(P1/S1/SEN/E) · Methods↔Results 대칭 골격 · crosswalk
+│   ├── results CSV schema (분석 ID별 필요 열 — 이후 check_numbers.py 기준)
+│   └── Table/Figure plan · 근거 지도 · 미결정 사항 · 자가 감사 (수치 금지)
 ├── Generate Python scripts in data/py/
 │   ├── 01_descriptive.py (demographics, baseline)
 │   ├── 02_comparative.py (group comparisons)
 │   └── 03_regression.py (if needed)
 ├── Run analysis → export results to results/
-│   └── table1_demographics.csv, table2_outcomes.csv, etc.
+│   └── table1_demographics.csv, table2_outcomes.csv, etc. (Step 2b 템플릿이 있으면 그 CSV schema대로)
 ├── Generate drafts/table_*.md from results CSV
 └── Generate figures → drafts/figures/
 
@@ -499,6 +509,7 @@ Phase 3: Draft Plan (원고 구성 계획) — Opus 권장
 ├── Step 0: Socratic 브레인스토밍 — 항목을 채우기 전 사용자에게 한 번에 하나씩 질문해 의도(key message) 정제 (draft_plan_template.md 상단; /paper-debate와 별개, R0 준비자료로 활용)
 ├── (선택) /paper-debate — key message·구조를 전략 담당 공동 저자(Codex)와 토론 후 plan 작성
 ├── Copy docs/draft_plan_template.md → drafts/draft_plan.md (또는 논문별 서브폴더)
+│   ├── (Step 2b 템플릿이 있으면 Table/Figure plan·Methods rationale claim을 그 F·G에서 가져옴)
 │   ├── Key message (이 논문의 핵심 메시지 1-2문장)
 │   ├── Tone & voice (논조/어조 설정)
 │   ├── Essential references (필수 인용 참고문헌 + 인용 목적)
@@ -517,9 +528,9 @@ Phase 4: Draft (in this order)
 ├── Read docs/drafting_protocol.md + docs/section_templates.md before drafting
 ├── Apply Style/terminology.md and relevant Style anchors during drafting
 ├── (선택) /paper-debate — 핵심 섹션 논증 골격을 논리 담당 공동 저자(Codex)와 토론 후 작성
-├── 04_methods.md      → establishes framework
+├── 04_methods.md      → establishes framework (Step 2b 템플릿 B가 있으면 그것에서 시작)
 │   └── Expert: Dr. Researcher B (methodology)
-├── 05_results.md      → narrative (refer to drafts/table_*.md)
+├── 05_results.md      → narrative (refer to drafts/table_*.md; 템플릿 C 빈칸을 results CSV 값으로 채움)
 │   └── Expert: Dr. Researcher B
 ├── 03_introduction.md → background & gap
 │   └── Expert: Dr. Researcher A (clinical)
@@ -591,7 +602,7 @@ Phase 8: Revision (리뷰어 코멘트 수신 후)
 | Phase | Move to Next When |
 |-------|-------------------|
 | 1 → 2 | Evidence supports planned claims, topic defined, study-specific inputs ready |
-| 2 → 3 | analysis_plan.md created & approved, all analyses complete, tables generated |
+| 2 → 3 | analysis_plan.md created & approved, (권장) method_results_template.md 작성·검토, all analyses complete, tables generated |
 | 3 → 4 | draft_plan.md created & approved — 10개 필수 항목 완결 (key message, tone/voice, essential refs, evidence gap, claim→citation mapping, table/figure plan, intro/discussion outline, limitation points, target word count) — Rule 8 참조 |
 | 4 → 5 | All sections drafted, numbers match tables |
 | 5 → 6 | Writing style rules applied, Dr. Editor reviewed |
@@ -628,6 +639,7 @@ Phase 8: Revision (리뷰어 코멘트 수신 후)
 | Command | Action |
 |---------|--------|
 | `Analyze data` | Read CSV from data/, create analysis_plan.md (필수, 승인 후 진행) |
+| `Create method-results template` | analysis_plan 승인 후 `docs/method_results_template.md` → `drafts/method_results_template.md` 복사·작성 (Step 2b, 권장; 수치 금지) |
 | `Generate analysis scripts` | Create Python scripts in data/py/ |
 | `Run analysis` | Execute Python scripts, export to results/ |
 | `Generate tables` | Create drafts/table_*.md from results CSV |
@@ -752,4 +764,4 @@ When drafting, invoke experts from `docs/expert_roles.md`:
 
 ### Statistical Analysis (Phase 2)
 
-> 워크플로·검정 선택은 Recommended Workflow Phase 2 + `docs/statistical_analysis_guide.md`(§1 워크플로, §5 검정 선택) 참조. 핵심: 분석 전 `analysis_plan.md` 필수(Rule 7, hook 강제) → `data/py/` 스크립트 → `results/` CSV → table/figure (Table↔Figure 중복 확인).
+> 워크플로·검정 선택은 Recommended Workflow Phase 2 + `docs/statistical_analysis_guide.md`(§1 워크플로, §5 검정 선택) 참조. 핵심: 분석 전 `analysis_plan.md` 필수(Rule 7, hook 강제) → (권장) Step 2b `method_results_template.md` → `data/py/` 스크립트 → `results/` CSV → table/figure (Table↔Figure 중복 확인).

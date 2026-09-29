@@ -1,4 +1,4 @@
-# Statistical Analysis Guide (v0.3.1)
+# Statistical Analysis Guide (v0.3.2)
 
 > 분석 접근을 확정하기 전에 `/paper-debate <분석 주제> stats`로 통계 담당 공동 저자(Codex)와 토론할 수 있다 (작성 전, 선택). 절차: `docs/debate_protocol.md`.
 
@@ -25,7 +25,10 @@ Step 2: Analysis Planning
 │   ├── Variable definitions (primary/secondary/exploratory)
 │   ├── Statistical methods & justification
 │   └── Significance level & multiple comparison plan
-└── 사용자 확인 후 Step 3 진행
+├── 사용자 확인 후 진행
+└── Step 2b (권장): docs/method_results_template.md → drafts/method_results_template.md
+    ├── 분석 위계 · Methods/Results 대칭 골격 · crosswalk (수치 금지)
+    └── results CSV schema — Step 4 출력 열을 분석 ID별로 미리 고정
 
 Step 3: Script Generation
 ├── Run "Generate analysis scripts"
@@ -36,7 +39,7 @@ Step 3: Script Generation
 
 Step 4: Execute Analysis
 ├── Run "Run analysis"
-└── Export to results/
+└── Export to results/ (Step 2b 템플릿이 있으면 그 CSV schema대로)
     ├── table1_demographics.csv
     ├── table2_outcomes.csv
     └── statistics_summary.csv

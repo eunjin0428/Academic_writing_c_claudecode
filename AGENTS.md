@@ -31,6 +31,7 @@ Never stage or commit these unless the user explicitly overrides the rule:
 ## Manuscript Workflow
 
 - Do not run statistical analysis before an approved `analysis_plan.md` exists.
+- Recommended (Phase 2 Step 2b): after the analysis plan is approved and before running analyses, copy `docs/method_results_template.md` to `drafts/method_results_template.md` to fix the Methods/Results skeleton, crosswalk, and results CSV schema. It is a planning artifact: no `0N_` section prefix, no numbers, and never merged into `analysis_plan.md`.
 - Do not draft manuscript sections before an approved `draft_plan.md` exists (run the Step 0 Socratic brainstorming in `docs/draft_plan_template.md` before filling it).
 - Draft sections in the order defined by `WORKFLOW.md`: Methods, Results, Introduction, Discussion, Conclusion, Abstract, Title.
 - Apply terminology rules from `Style/terminology.md` during drafting and polishing.

@@ -107,6 +107,7 @@
 > 없으면 Phase 1로 돌아가 검색.
 > Style/own/에서 본인 논문 스타일 앵커도 확인.
 > **인용 형식:** citation은 `[EVID:author_year]` 태그로 적는다 (evidence.md id와 일치). 존재하지 않는 id는 게이트에서 차단된다.
+> Phase 2 Step 2b의 `method_results_template.md`가 있으면 Methods rationale claim은 그 **G. Reference Justification Map**에서 가져온다.
 
 ### Introduction Background (5–8 claims)
 
@@ -143,6 +144,7 @@
 
 > 몇 개, 각각 어떤 내용, Table vs Figure 결정.
 > 원칙: 동일 데이터를 Table과 Figure 모두에 제시하지 않음.
+> Phase 2 Step 2b의 `method_results_template.md`가 있으면 그 **F. Table / Figure Plan**을 옮겨 오고, 달라지는 부분만 사유와 함께 적는다.
 
 | # | 제목 (가안) | 형식 | 내용 요약 |
 |---|-------------|------|-----------|

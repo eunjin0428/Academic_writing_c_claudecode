@@ -10,7 +10,7 @@ Claude Code / Codex / Gemini CLI share the Python engine. Start with [docs/harne
 
 ## Version
 
-**v1.7.4** (2026-09-08)
+**v1.7.5** (2026-09-29)
 
 [![tests](https://github.com/grotyx/Academic_writing_c_claudecode/actions/workflows/tests.yml/badge.svg)](https://github.com/grotyx/Academic_writing_c_claudecode/actions/workflows/tests.yml)
 
@@ -49,6 +49,7 @@ This project provides a comprehensive framework for writing academic medical pap
 - **Author response DOCX generation** (`scripts/compile_response_docx.py`) — converts DOCX-ready Markdown to the `Author_response_220803_Final.docx` house style
 - **Author response Markdown template** (`docs/response_letter_template.md`) — keeps reviewer responses, manuscript locations, and machine-readable `[CHANGE]` blocks aligned
 - **Draft plan template** (`docs/draft_plan_template.md`) — 10-item template with claim→citation tables and approval checklist
+- **Method–Results template** (`docs/method_results_template.md`, Phase 2 Step 2b, recommended) — after the analysis plan is approved and before any analysis runs, pre-specify the Methods/Results skeleton, a method–result crosswalk, and the `results/*.csv` schema that `check_numbers.py` later verifies against; blocks outcome switching and feeds the draft plan
 - **PubMed search tool** with built-in Python script (no MCP or external packages required)
 - **Co-author debate** (`/paper-debate`) — pre-writing Claude–Codex discussion for analysis plans, draft plans, argument structure, and reviewer responses (`docs/debate_protocol.md`)
 - **Multi-model critical review** (`/critical-review`) — post-writing adversarial review at senior reviewer/editor level via Claude subagent, Codex, and/or OpenRouter models, ranked by consensus × severity (`docs/critical_review_protocol.md`)
@@ -84,6 +85,7 @@ project/
 │   ├── figure_guide.md           # Figure generation guide
 │   ├── docx_guide.md             # DOCX conversion guide
 │   ├── draft_plan_template.md    # Draft plan template (copy to drafts/ for Phase 3)
+│   ├── method_results_template.md  # Method–Results skeleton (Phase 2 Step 2b, recommended)
 │   ├── debate_protocol.md        # Claude–Codex co-author debate procedure
 │   ├── critical_review_protocol.md  # External multi-model adversarial review
 │   ├── style_transform_protocol.md  # /style-pass transform + Style verifier
@@ -310,6 +312,7 @@ Slash commands for Claude integration:
 | [docs/figure_guide.md](docs/figure_guide.md) | Figure generation guide (DPI, palettes, Python templates) |
 | [docs/docx_guide.md](docs/docx_guide.md) | DOCX conversion guide (formatting, table style, naming rules) |
 | [docs/draft_plan_template.md](docs/draft_plan_template.md) | Draft plan template — 10-item with claim→citation tables and approval checklist |
+| [docs/method_results_template.md](docs/method_results_template.md) | Method–Results skeleton template (Phase 2 Step 2b, recommended) — analytic hierarchy, mirrored Methods/Results skeleton, crosswalk, results CSV schema, table/figure plan, unresolved decisions; no numbers |
 | [docs/debate_protocol.md](docs/debate_protocol.md) | Claude–Codex co-author debate procedure (rounds, roles, logging, fallback) |
 | [docs/critical_review_protocol.md](docs/critical_review_protocol.md) | External multi-model adversarial review (reviewer pool, consensus × severity, fallback) |
 | [Style/style_guide.md](Style/style_guide.md) | Style anchor workflow, extraction framework, and PDF-to-MD mirror rules |
@@ -373,6 +376,12 @@ Full license text: https://creativecommons.org/licenses/by/4.0/legalcode
 ---
 
 ## Changelog
+
+### v1.7.5 (260929)
+
+- **Phase 2 Step 2b — Method–Results template (recommended).** New `docs/method_results_template.md`: once `analysis_plan.md` is approved and before analyses run, copy it to `drafts/method_results_template.md` to fix the analytic hierarchy (P1/S1/SEN/E), a mirrored Methods/Results skeleton with fill-in blanks, a method–result crosswalk, the `results/*.csv` column schema, the table/figure plan, a reference justification map, unresolved decisions and a pre-analysis self-audit. It is a planning artifact — no `0N_` prefix (so the Rule 8 hook does not block it), no numbers, never merged into `analysis_plan.md` (keeps the approval hash stable).
+- Wired into `WORKFLOW.md` (structure, file roles, Rules 7–8, Phase 2–4, 2→3 criteria, Quick Commands), `AGENTS.md`, `docs/draft_plan_template.md` (items 5/6 import from the template), `docs/drafting_protocol.md`, and `docs/statistical_analysis_guide.md` (v0.3.2).
+- Regression test: the plan-first hook allows `drafts/method_results_template.md` while still blocking `drafts/04_methods.md` without an approved draft plan.
 
 ### v1.7.4 (260908)
 
